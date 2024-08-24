@@ -11,7 +11,9 @@ public class Main {
         TiendaOnline tienda = new TiendaOnline();
 
         Pedido pedido = new Pedido("1", "Juan Perez");
-
+        Pedido pedido2 = new Pedido("2", "Pedro Rojas");
+        Pedido pedido3 = new Pedido("3", "Leo Feliz");
+        
         pedido.registrarObservador(new Notificador() {
             @Override
             public void actualizar(Pedido pedido) {
