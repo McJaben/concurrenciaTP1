@@ -59,10 +59,8 @@ public class Main {
 
                     // Procesar todos los pedidos en paralelo
                     for (Pedido p : pedidosPendientes) {
-                        if (!p.isProcesado()) {
-                            Future<Pedido> future = tienda.procesarPedido(p);
-                            futures.add(future);
-                        }
+                        Future<Pedido> future = tienda.procesarPedido(p);
+                        futures.add(future);
                     }
 
                     // Esperar a que todos los pedidos sean procesados
