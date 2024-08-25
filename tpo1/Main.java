@@ -1,8 +1,8 @@
 package tpo1;
 
 import tpo1.models.Pedido;
+import tpo1.models.Cliente;
 import tpo1.services.TiendaOnline;
-import tpo1.services.Notificador;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +17,9 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
 
         boolean continuar = true;
+        
         int cantPedidos = 0;
+
         while (continuar) {
             System.out.println("=== Menú de Tienda Online ===");
             System.out.println("1. Crear un nuevo pedido");
@@ -32,15 +34,19 @@ public class Main {
                     cantPedidos++;
                     String id = String.valueOf(cantPedidos);
                     System.out.println("Ingrese el nombre del cliente: ");
-                    String cliente = scanner.nextLine();
+                    String nombreCliente = scanner.nextLine();
+
+                    // Crear un nuevo cliente
+                    Cliente cliente = new Cliente(nombreCliente);
 
                     // Crear un nuevo pedido
                     Pedido pedido = new Pedido(id, cliente);
 
                     // Crear y registrar un observador único para este pedido
-                    pedido.registrarObservador(
-                            p -> System.out.println("Pedido " + p.getId() + " está " + p.getEstado()));
-                    
+                    //pedido.registrarObservador(
+                    //        p -> System.out.println("Pedido " + p.getId() + " está " + p.getEstado()));
+                    pedido.registrarObservador(cliente);
+
                     // Agregar el pedido a la lista
                     pedidos.add(pedido);
 
