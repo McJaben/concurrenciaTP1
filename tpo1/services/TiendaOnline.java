@@ -9,12 +9,12 @@ public class TiendaOnline {
     private ExecutorService executor;
 
     public TiendaOnline() {
-        this.executor = Executors.newFixedThreadPool(10);
+        this.executor = Executors.newFixedThreadPool(10); // Pool de 10 hilos
     }
 
     public Future<Pedido> procesarPedido(Pedido pedido) {
         ProcesadorDePedidos procesador = new ProcesadorDePedidos(pedido);
-        return executor.submit(procesador);
+        return executor.submit(procesador); // Procesa el pedido en uno de los hilos disponibles
     }
 
     public void shutdown() {
