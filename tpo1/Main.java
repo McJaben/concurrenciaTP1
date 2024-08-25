@@ -89,33 +89,5 @@ public class Main {
         // Cerrar el ExecutorService antes de salir
         tienda.shutdown();
         scanner.close();
-
-        // // Simulación de múltiples pedidos
-        // Pedido pedido1 = new Pedido("1", "Juan Perez");
-        // Pedido pedido2 = new Pedido("2", "Ana Gomez");
-        // Pedido pedido3 = new Pedido("3", "Carlos Lopez");
-
-        // // Crear y registrar observadores específicos para cada pedido
-        // pedido1.registrarObservador(
-        //         pedido -> System.out.println("Pedido " + pedido.getId() + " está " + pedido.getEstado()));
-        // pedido2.registrarObservador(
-        //         pedido -> System.out.println("Pedido " + pedido.getId() + " está " + pedido.getEstado()));
-        // pedido3.registrarObservador(
-        //         pedido -> System.out.println("Pedido " + pedido.getId() + " está " + pedido.getEstado()));
-
-        // // Procesar pedidos concurrentemente
-        // Future<Pedido> future1 = tienda.procesarPedido(pedido1);
-        // Future<Pedido> future2 = tienda.procesarPedido(pedido2);
-        // Future<Pedido> future3 = tienda.procesarPedido(pedido3);
-
-        // try {
-        //     future1.get(); // Espera a que el pedido1 sea procesado
-        //     future2.get(); // Espera a que el pedido2 sea procesado
-        //     future3.get(); // Espera a que el pedido3 sea procesado
-        // } catch (InterruptedException | ExecutionException e) {
-        //     e.printStackTrace();
-        // } finally {
-        //     tienda.shutdown();
-        // }
     }
 }
