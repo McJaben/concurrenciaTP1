@@ -23,6 +23,10 @@ public class Pedido {
         notificarObservadores();
     }
 
+    public boolean isProcesado() {
+        return estado == EstadoPedido.COMPLETADO || estado == EstadoPedido.FALLIDO;
+    }
+
     public void registrarObservador(Notificador observador) {
         observadores.add(observador);
     }

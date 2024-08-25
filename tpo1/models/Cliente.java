@@ -13,4 +13,8 @@ public class Cliente implements Notificador {
     public void actualizar(Pedido pedido) {
         System.out.println("Hola " + nombre + ", tu pedido está: " + pedido.getEstado());
     }
+
+    public String getNombre() {
+        return this.nombre;
+    }
 }
