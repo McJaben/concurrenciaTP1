@@ -1,5 +1,5 @@
 package tpo1.models;
-
+//Pedido va a ser nuestro sujeto
 import tpo1.services.Notificador;
 import java.util.ArrayList;
 import java.util.List;
@@ -7,11 +7,11 @@ import java.util.List;
 
 public class Pedido {
     private String id;
-    private String cliente;
+    private Cliente cliente;
     private EstadoPedido estado;
     private List<Notificador> observadores;
 
-    public Pedido(String id, String cliente) {
+    public Pedido(String id, Cliente cliente) {
         this.id = id;
         this.cliente = cliente;
         this.estado = EstadoPedido.PENDIENTE;
@@ -21,6 +21,10 @@ public class Pedido {
     public void setEstado(EstadoPedido estado) {
         this.estado = estado;
         notificarObservadores();
+    }
+
+    public boolean isProcesado() {
+        return estado == EstadoPedido.COMPLETADO || estado == EstadoPedido.FALLIDO;
     }
 
     public void registrarObservador(Notificador observador) {
@@ -39,7 +43,7 @@ public class Pedido {
         return id;
     }
 
-    public String getCliente() {
+    public Cliente getCliente() {
         return cliente;
     }
 
