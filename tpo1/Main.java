@@ -26,7 +26,8 @@ public class Main {
             System.out.println("1. Crear un nuevo pedido");
             System.out.println("2. Procesar todos los pedidos pendientes");
             System.out.println("3. Listar los pedidos procesados.");
-            System.out.println("4. Salir");
+            System.out.println("4. Mostrar pedidos pendientes por procesar");
+            System.out.println("5. Salir");
             System.out.println("Seleccione una opción: ");
             int opcion = scanner.nextInt(); // lee un entero ingresado por el usuario
             scanner.nextLine(); // Para limpiar el buffer
@@ -87,7 +88,17 @@ public class Main {
                     }
                     break;
 
-                case 4:
+                case 4: 
+                    if(!pedidosPendientes.isEmpty()){
+                        for(Pedido ped : pedidosPendientes){
+                            System.out.println("Pedido pendiente con ID: " + ped.getId() + " del Cliente: " + ped.getCliente().getNombre());
+                        }
+                    }else{
+                        System.out.println("No hay pedidos pendientes por procesar.");
+                    }
+                    break;
+
+                case 5:
                     continuar = false;
                     System.out.println("Saliendo del sistema.");
                     break;
