@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.concurrent.ExecutionException;
+import java.util.InputMismatchException;
 import java.util.concurrent.Future;
 
 public class Main {
@@ -28,10 +29,18 @@ public class Main {
             System.out.println("3. Listar los pedidos procesados.");
             System.out.println("4. Mostrar pedidos pendientes por procesar");
             System.out.println("5. Salir");
-            System.out.println("Seleccione una opción: ");
-            int opcion = scanner.nextInt(); // lee un entero ingresado por el usuario
-            scanner.nextLine(); // Para limpiar el buffer
-
+            int opcion = 0;
+            while (true) {
+                try {
+                    System.out.println("Seleccione una opción: ");
+                    opcion = scanner.nextInt(); // lee un entero ingresado por el usuario
+                    scanner.nextLine();
+                    break;
+                } catch(InputMismatchException e) {
+                    System.out.println("Entrada no válida. Por favor, ingrese un número entero.");
+                    scanner.nextLine(); // Para limpiar el buffer
+                }
+            }
             switch (opcion) {
                 case 1:
                     cantPedidos++;
@@ -51,11 +60,11 @@ public class Main {
                     // Agregar el pedido a la lista
                     pedidosPendientes.add(pedido);
 
-                    System.out.println("Pedido creado exitosamente. \n");
+                    System.out.println("\nPedido creado exitosamente. \n");
                     break;
 
                 case 2:
-                    System.out.println("Procesando pedidos pendientes... \n");
+                    System.out.println("\nProcesando pedidos pendientes... \n");
                     List<Future<Pedido>> futures = new ArrayList<>();
 
                     // Procesar todos los pedidos en paralelo
@@ -77,24 +86,31 @@ public class Main {
                     // Limpiar la lista de pedidos pendientes
                     pedidosPendientes.clear();
 
-                    System.out.println("Todos los pedidos han sido procesados. \n");
+                    System.out.println("\nTodos los pedidos han sido procesados. \n");
                     break;
 
                 case 3:
-                    System.out.println("Lista de pedidos procesados y su resultado: /n");
-                    for (Pedido p : pedidosProcesados) {
-                        System.out.println("Pedido ID: " + p.getId() + ", cliente: " + p.getCliente().getNombre()
-                                + ", estado: " + p.getEstado());
+                    System.out.println("\nLista de pedidos procesados y su resultado: \n");
+                    if (!pedidosProcesados.isEmpty()) {
+                        for (Pedido p : pedidosProcesados) {
+                            System.out.println("Pedido ID: " + p.getId() + ", cliente: " + p.getCliente().getNombre()
+                                    + ", estado: " + p.getEstado());
+                        }
+                        System.out.println("");
+                    } else {
+                        System.out.println("\n No hay pedidos procesados aún. \n");
                     }
                     break;
 
                 case 4: 
                     if(!pedidosPendientes.isEmpty()){
+                        System.out.println("\nLista de pedidos pendientes:\n");
                         for(Pedido ped : pedidosPendientes){
                             System.out.println("Pedido pendiente con ID: " + ped.getId() + " del Cliente: " + ped.getCliente().getNombre());
                         }
+                        System.out.println("");
                     }else{
-                        System.out.println("No hay pedidos pendientes por procesar.");
+                        System.out.println("\nNo hay pedidos pendientes por procesar.\n");
                     }
                     break;
 
