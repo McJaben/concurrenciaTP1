@@ -64,29 +64,34 @@ public class Main {
                     break;
 
                 case 2:
-                    System.out.println("\nProcesando pedidos pendientes... \n");
-                    List<Future<Pedido>> futures = new ArrayList<>();
-
-                    // Procesar todos los pedidos en paralelo
-                    for (Pedido p : pedidosPendientes) {
-                        Future<Pedido> future = tienda.procesarPedido(p);
-                        futures.add(future);
-                    }
-
-                    // Esperar a que todos los pedidos sean procesados
-                    for (Future<Pedido> future : futures) {
-                        try {
-                            Pedido p = future.get(); // Bloquea hasta que el pedido haya sido procesado
-                            pedidosProcesados.add(p); // Mueve el pedido a la lista de procesados
-                        } catch (InterruptedException | ExecutionException e) {
-                            e.printStackTrace();
+                    System.out.println("\nVerificando si hay pedidos pendientes por procesar...");
+                    if (!pedidosPendientes.isEmpty()) {
+                        System.out.println("\nProcesando pedidos pendientes... \n");
+                        List<Future<Pedido>> futures = new ArrayList<>();
+    
+                        // Procesar todos los pedidos en paralelo
+                        for (Pedido p : pedidosPendientes) {
+                            Future<Pedido> future = tienda.procesarPedido(p);
+                            futures.add(future);
                         }
+
+                        // Esperar a que todos los pedidos sean procesados
+                        for (Future<Pedido> future : futures) {
+                            try {
+                                Pedido p = future.get(); // Bloquea hasta que el pedido haya sido procesado
+                                pedidosProcesados.add(p); // Mueve el pedido a la lista de procesados
+                            } catch (InterruptedException | ExecutionException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                        
+                        // Limpiar la lista de pedidos pendientes
+                        pedidosPendientes.clear();
+                        System.out.println("\nTodos los pedidos han sido procesados. \n");
+                    } else {
+                        System.out.println("No hay pedidos pendientes por procesar.\n");
                     }
 
-                    // Limpiar la lista de pedidos pendientes
-                    pedidosPendientes.clear();
-
-                    System.out.println("\nTodos los pedidos han sido procesados. \n");
                     break;
 
                 case 3:
